@@ -1,0 +1,33 @@
+{
+  "name": "github-fetch-data-repos",
+  "version": "1.0.0",
+  "description": "fetch info about project to analyze data later. get stars, language, contributor size",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielstaleiny/github-fetch-data-repos.git"
+  },
+  "author": "",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/danielstaleiny/github-fetch-data-repos/issues"
+  },
+  "homepage": "https://github.com/danielstaleiny/github-fetch-data-repos#readme",
+  "dependencies": {
+    "bent": "^7.0.2",
+    "json-2-csv": "^3.5.7",
+    "querystring": "^0.2.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.18.2"
+  },
+  "prettier": {
+    "tabWidth": 4,
+    "semi": false,
+    "singleQuote": true,
+    "bracketSpacing": true
+  }
+}
