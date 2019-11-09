@@ -7,8 +7,12 @@ const qs = require('querystring')
 const bent = require('bent')('json', { 'User-Agent': 'Best-Programing-lang-' })
 
 const OAUTH_TOKEN = process.env.TOKEN
-const PAGE = 1
-const FILENAME = `data-${PAGE}.csv` // Constant
+const FROM = 1000
+const TO = 1003
+const PAGE = `${FROM}..${TO}`
+console.log(PAGE)
+
+const FILENAME = `data-${PAGE.replace('..', '-')}.csv` // Constant
 
 // Clean FILENAME csv content
 writeFile(FILENAME, '').catch(e => console.error(e))
@@ -20,10 +24,10 @@ const w = data => writeFile(FILENAME, data, { flag: 'a' })
 const main = async () => {
     try {
         const url = `https://api.github.com/search/repositories?${qs.stringify({
-            q: 'is:public',
+            q: `stars:${PAGE} is:public`,
             sort: 'stars',
             order: 'desc',
-            per_page: 1000,
+            per_page: 100,
             // page: PAGE,
             // page: 1, -> 10
             access_token: OAUTH_TOKEN
@@ -61,51 +65,16 @@ const main = async () => {
                 }
             }
         )
+        console.log(json.length)
         const csv = await jtoc(json, {
-            prependHeader: true,
+            prependHeader: false,
             expandArrayObjects: true
         })
+
         await w(csv + '\n')
     } catch (e) {
         console.error(e)
     }
 }
-
-// (str "https://api.github.com/search/repositories?"
-//  "q=" query
-//  "&sort=stars&order=desc&"
-//  "page=" page "&"
-//  "per_page=1&"
-//  "access_token=" oauth-token))))
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-// const fileStream = fs.createWriteStream('test.csv', { flags: 'a' })
-
-// const write =
-
-// fileStream.write('test fun', err =>
-//     err ? console.error(err) : console.log('done')
-// )
-
-// fileStream.close()
 
 main().catch(e => console.error(e))
